@@ -39,4 +39,8 @@ chmod +x terraform-docs || handle_error "6.3 (asignar permisos a terraform-docs)
 sudo mv terraform-docs /usr/local/bin/ || handle_error "6.4 (mover terraform-docs a /usr/local/bin)"
 rm -rf terraform-docs.tar.gz README.md LICENSE || handle_error "6.5 (limpieza de archivos temporales)"
 
+# 7. Instalar TFLint
+echo "Instalando TFLint..."
+curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash || handle_error "7 (instalación de TFLint)"
+
 echo "Instalación completada con éxito."
