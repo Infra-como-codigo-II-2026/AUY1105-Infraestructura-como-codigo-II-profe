@@ -1,4 +1,4 @@
-# SIGLA ASIGNATURA - NOMBRE ASIGNATURA
+# SIGLA ASIGNATURA - Infraestructura Como Código II
 
 <p align="left" style="text-align:left;">
   <a href="https://www.duoc.cl/">
