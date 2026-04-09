@@ -1,4 +1,4 @@
-# SIGLA ASIGNATURA - Infraestructura Como Código II
+# AUY1105 - Infraestructura Como Código II
 
 <p align="left" style="text-align:left;">
   <a href="https://www.duoc.cl/">
