@@ -1,11 +1,13 @@
 variable "key_name" {
   description = "Nombre del par de claves"
   type        = string
+  default     = "vockey"
 }
 
 variable "public_key" {
   description = "Clave pública SSH"
   type        = string
+  default     = ""
 }
 
 variable "security_group_name" {
