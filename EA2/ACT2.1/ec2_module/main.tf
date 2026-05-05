@@ -1,8 +1,6 @@
-resource "aws_key_pair" "mi_key" {
-  key_name   = var.key_name
-  public_key = var.public_key
+data "aws_key_pair" "existente" {
+  key_name = var.key_name
 }
-
 resource "aws_security_group" "ssh_access" {
   name        = var.security_group_name
   description = "Permitir acceso SSH desde cualquier IPv4"
