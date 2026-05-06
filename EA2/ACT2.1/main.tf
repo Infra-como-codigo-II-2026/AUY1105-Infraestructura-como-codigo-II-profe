@@ -21,7 +21,7 @@ module "ec2" {
 
 module "ec2_2" {
   source        = "./ec2_module"
-  key_name      = "vockey"
+  key_name      = var.key_name
   ami           = "ami-012967cc5a8c9f891"
   subnet_id     = module.vpc.subnet_publica_1_id
   vpc_id        = module.vpc.vpc_id
