@@ -36,12 +36,3 @@ module "ec2_3" {
   vpc_id        = module.vpc.vpc_id
   instance_name = "MiInstancia"
 }
-
-module "ec2_4" {
-  source        = "./ec2_module"
-  key_name      = "vockey"
-  ami           = "ami-012967cc5a8c9f891"
-  subnet_id     = module.vpc.subnet_publica_2_id
-  vpc_id        = module.vpc.vpc_id
-  instance_name = "MiInstancia"
-}
