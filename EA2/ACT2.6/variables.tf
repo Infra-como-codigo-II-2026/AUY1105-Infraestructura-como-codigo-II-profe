@@ -45,8 +45,3 @@ variable "subnet_privada_2_cidr" {
   type        = string
   default     = "10.1.4.0/24"
 }
-
-# variable "enable_dns_hostnames" {
-#   description = "Habilitar nombres de host DNS"
-#   type        = bool
-# }
