@@ -8,6 +8,7 @@ module "vpc" {
   subnet_privada_2_cidr = var.subnet_privada_2_cidr
   az_1                  = "us-east-1a"
   az_2                  = "us-east-1b"
+  enable_dns_hostnames  = false
 }
 
 module "ec2" {

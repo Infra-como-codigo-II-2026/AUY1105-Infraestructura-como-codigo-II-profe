@@ -3,6 +3,22 @@ resource "aws_key_pair" "mi_key" {
   public_key = var.public_key
 }
 
+data "aws_vpc" "current" {
+  id = var.vpc_id
+}
+
+data "aws_security_group" "default" {
+  filter {
+    name   = "group-name"
+    values = ["default"]
+  }
+
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.current.id]
+  }
+}
+
 resource "aws_security_group" "ssh_access" {
   count       = var.use_security_group ? 1 : 0 # Condicional basado en la variable
   name        = var.security_group_name
@@ -35,7 +51,7 @@ resource "aws_instance" "mi_ec2" {
   instance_type          = var.instance_type
   key_name               = aws_key_pair.mi_key.key_name
   subnet_id              = var.subnet_id
-  vpc_security_group_ids = var.use_security_group ? [aws_security_group.ssh_access[0].id] : []
+  vpc_security_group_ids = var.use_security_group ? [aws_security_group.ssh_access[0].id] : [data.aws_security_group.default.id]
 
   tags = {
     Name = var.instance_name
