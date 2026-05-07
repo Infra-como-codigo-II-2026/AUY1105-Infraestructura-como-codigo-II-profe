@@ -51,7 +51,7 @@ resource "aws_kms_key" "flow_logs" {
         Sid    = "AllowCloudWatchLogsUsage"
         Effect = "Allow"
         Principal = {
-          Service = "logs.${data.aws_region.current.name}.amazonaws.com"
+          Service = "logs.${data.aws_region.current.region}.amazonaws.com"
         }
         Action = [
           "kms:Encrypt",
@@ -182,7 +182,7 @@ resource "aws_subnet" "subnet_privada_2" {
 
 # Crear un NAT Gateway
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  domain = "vpc"
   tags = {
     Name = "nat-eip"
   }
