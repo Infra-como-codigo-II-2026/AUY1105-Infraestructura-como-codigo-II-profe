@@ -64,43 +64,64 @@ terraform apply
 
 ### 6. Ejecución de Pruebas
 
-Para la realización de las pruuebas, utilizaremos terratest, el cual nos ayudará mediante un archivo previamente construido, ejecutar pruebas sobre nuestro módulo, específicamente sobre el de VPC.
+Para la realización de las pruebas utilizaremos Terratest para validar el módulo VPC.
 
-Para ello, primero deberemos previamente instalar las dependencias necesarias para la ejecución de nuestras pruebas:
-
-```bash
-go get github.com/gruntwork-io/terratest/modules/terraform
-go get github.com/gruntwork-io/terratest/modules/test-structure
-go get github.com/gruntwork-io/terratest/modules/aws
-go get github.com/stretchr/testify/assert
-```
-
-Ya instaladas las dependencias, ejecutaremos el siguiente comando, para ejecutar las pruebas y analizar el resultado:
+Primero, inicializa el módulo Go en la carpeta de la actividad (solo la primera vez):
 
 ```bash
-go test -v vpc_module_test/vpc_test.go
+go mod init act2_7_tests
 ```
 
-Para forzar un comportamiento erróneo, modificaremos en el archivo vpc_module_test/vpc_test.go de la siguiente manera
+Instala las dependencias necesarias:
+
+```bash
+go get github.com/gruntwork-io/terratest@v0.46.16
+go get github.com/stretchr/testify@v1.11.1
+go mod tidy
+```
+
+Luego ejecuta las pruebas:
+
+```bash
+go test -v ./vpc_module_test
+```
+
+Si deseas forzar la ejecución del test sin usar caché:
+
+```bash
+go test -v -count=1 ./vpc_module_test
+```
+
+### 7. Escenario de Error Controlado
+
+Para forzar un comportamiento erróneo, modifica en vpc_module_test/vpc_test.go las zonas de disponibilidad para que no coincidan con la región del provider (us-east-1).
 
 **ANTES**
+
 ```bash
-EnvVars: map[string]string{
-			"AWS_DEFAULT_REGION": "us-east-1",
-		},
+"az_1": "us-east-1a",
+"az_2": "us-east-1b",
 ```
+
 **DESPUÉS**
-```bash
-EnvVars: map[string]string{
-			"AWS_DEFAULT_REGION": "us-west-1",
-		},
-```
-
-Volvemos a ejecutar las pruebas, y analizamos el resultado:
 
 ```bash
-go test -v vpc_module_test/vpc_test.go
+"az_1": "us-west-1a",
+"az_2": "us-west-1b",
 ```
+
+Ejecuta nuevamente:
+
+```bash
+go test -v -count=1 ./vpc_module_test
+```
+
+Resultado esperado:
+
+- El test falla con error de AWS por availability zone inválida para la región us-east-1.
+- Terratest ejecuta destroy automáticamente y elimina los recursos parciales creados.
+
+Nota: cambiar solo AWS_DEFAULT_REGION en EnvVars no necesariamente forzará un error si el provider de Terraform tiene la región definida explícitamente.
 
 ## TRABAJO AUTÓNOMO
 

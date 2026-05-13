@@ -29,8 +29,8 @@ func TestVPCInfrastructure(t *testing.T) {
 			"subnet_publica_2_cidr": "10.0.2.0/24",
 			"subnet_privada_1_cidr": "10.0.3.0/24",
 			"subnet_privada_2_cidr": "10.0.4.0/24",
-			"az_1":                  "us-east-1a",
-			"az_2":                  "us-east-1b",
+			"az_1":                  "us-west-1a",
+			"az_2":                  "us-west-1b",
 		},
 
 		// Configurar variables de entorno si es necesario (por ejemplo, AWS Access Key)
