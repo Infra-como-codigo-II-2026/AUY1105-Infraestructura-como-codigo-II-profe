@@ -65,7 +65,7 @@ terraform plan
 
 1. Pega en un nuevo archivo llamado s3.tf el siguiente bloque de código:
 
-```bash
+```hcl
 resource "aws_s3_bucket" "mi_s3" {
   bucket = "mi-s3"
 
@@ -77,7 +77,7 @@ resource "aws_s3_bucket" "mi_s3" {
 
 Ejecuta un **terraform plan** y evalúa los resultados. Posterior a esto, haremos un cambio en el archivo provider.tf agregando el siguiente bloque de código:
 
-```bash
+```hcl
 terraform {
   required_providers {
     aws = {
@@ -88,9 +88,16 @@ terraform {
 }
 ```
 
-Ejecutaremos el comando **terraform init -upgrade** para actualizar la versión del provider, y evaluaremos los resultados mediante un **terraform plan**. Recibiremos un Warning asociado al bloque **website_configuration** dentro de nuestro código, por lo cual, deberemos reemplazar en nuestro archivo s3.tf algunas configuraciones:
+Luego, guarda los cambios en provider.tf y ejecuta este paso obligatorio para forzar la actualización del provider:
 
 ```bash
+terraform init -upgrade
+terraform plan
+```
+
+Recibiremos un Warning asociado al bloque **website_configuration** dentro de nuestro código, por lo cual, deberemos reemplazar en nuestro archivo s3.tf algunas configuraciones:
+
+```hcl
 resource "aws_s3_bucket" "mi_s3" {
   bucket = "mi-s3"
 }
