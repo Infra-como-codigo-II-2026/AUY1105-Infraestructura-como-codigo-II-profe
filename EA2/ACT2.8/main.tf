@@ -21,4 +21,14 @@ module "ec2" {
   use_security_group = false
 }
 
+resource "aws_s3_bucket" "mi_s3" {
+  bucket = "mi-s3"
+}
 
+resource "aws_s3_bucket_website_configuration" "mi_s3" {
+  bucket = aws_s3_bucket.mi_s3.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+}
